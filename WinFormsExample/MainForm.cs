@@ -231,7 +231,25 @@ namespace WinFormsExample
             }
             catch (Exception ex) { ReportError(ex.Message, false); }
         }
-
+        // rotate bitmap helper
+        public static Bitmap RotateImage(Bitmap b, float angle)
+        {
+        //create a new empty bitmap to hold rotated image
+        Bitmap returnBitmap = new Bitmap(b.Width, b.Height);
+        //make a graphics object from the empty bitmap
+        using(Graphics g = Graphics.FromImage(returnBitmap)) 
+        {
+            //move rotation point to center of image
+            g.TranslateTransform((float)b.Width / 2, (float)b.Height / 2);
+            //rotate
+            g.RotateTransform(angle);
+            //move image back
+            g.TranslateTransform(-(float)b.Width / 2, -(float)b.Height / 2);
+            //draw passed in image onto graphics object
+            g.DrawImage(b, new System.Drawing.Point(0, 0)); 
+        }
+        return returnBitmap;
+        }
         private void LiveViewPicBox_Paint(object sender, PaintEventArgs e)  // ??
         {
             foreach (Camera cam in CamList) {
@@ -256,6 +274,7 @@ namespace WinFormsExample
                                 w = (int)(LVBh * LVration);
                                 h = LVBh;
                             }
+                            Evf_Bmp = RotateImage(Evf_Bmp, 90);
                             e.Graphics.DrawImage(Evf_Bmp, 0, 0, w, h);
                         }
                     }
