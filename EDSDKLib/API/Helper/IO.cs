@@ -75,7 +75,7 @@ namespace EOSDigital.API
         /// <summary>
         /// The name of the entry. (volume name, folder name or file name)
         /// </summary>
-        public string Name { get; protected set; }
+        public string Name { get;  set; }
         /// <summary>
         /// States if the entry is a folder or not
         /// </summary>

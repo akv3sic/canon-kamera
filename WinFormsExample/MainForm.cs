@@ -15,6 +15,10 @@ namespace WinFormsExample
         CanonAPI APIHandler;
         //Camera MainCamera;
         List<Camera> CamList; // lista svih kamera
+        CameraFileEntry cameraFiles;
+        CameraFileEntry [] allImages;
+        int acquisitionShootIndex;
+        int acquisitionSaveIndex;
         bool IsInit = false;
         Bitmap Evf_Bmp;
         int LVBw, LVBh, w, h;
@@ -36,7 +40,7 @@ namespace WinFormsExample
                 APIHandler.CameraAdded += APIHandler_CameraAdded;
                 ErrorHandler.SevereErrorHappened += ErrorHandler_SevereErrorHappened;
                 ErrorHandler.NonSevereErrorHappened += ErrorHandler_NonSevereErrorHappened;
-                SavePathTextBox.Text = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), "RemotePhoto");
+                SavePathTextBox.Text = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), "00 Racunalni vid");
                 SaveFolderBrowser.Description = "Save Images To...";
                 LiveViewPicBox1.Paint += LiveViewPicBox_Paint;
                 LiveViewPicBox2.Paint += LiveViewPicBox_Paint;
@@ -44,6 +48,11 @@ namespace WinFormsExample
                 LVBh = LiveViewPicBox1.Height;
                 RefreshCamera();
                 IsInit = true;
+                acquisitionShootIndex = 0;
+                acquisitionSaveIndex = 0;
+                // enabable save to settings
+                BrowseButton.Enabled = true;
+                SavePathTextBox.Enabled = true;
             }
             catch (DllNotFoundException) { ReportError("Canon DLLs not found!", true); }
             catch (Exception ex) { ReportError(ex.Message, true); }
@@ -102,6 +111,10 @@ namespace WinFormsExample
                 string dir = null;
                 Invoke((Action)delegate { dir = SavePathTextBox.Text; });
                 sender.DownloadFile(Info, dir);
+                // današnji datum
+                DateTime date = DateTime.Today;
+                Console.WriteLine(date.ToString("dd MM yyyy"));
+                Info.FileName = acquisitionShootIndex + " Cam 01 00 - " + date.ToString("dd MM yyyy");
                 Invoke((Action)delegate { MainProgressBar.Value = 0; });
             }
             catch (Exception ex) { ReportError(ex.Message, false); }
@@ -142,9 +155,37 @@ namespace WinFormsExample
         {
             try
             {
-                foreach (Camera cam in CamList) cam.TakePhotoAsync();
+                foreach (Camera cam in CamList) {
+                    cam.SetSetting(PropertyID.SaveTo, (int)SaveTo.Camera);
+                    cam.TakePhotoAsync();
+                    Console.WriteLine("Uslikano.");
+                };
+                
+                acquisitionShootIndex++;
             }
             catch (Exception ex) { ReportError(ex.Message, false); }
+        }
+        // save photo button handler
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("Save clicked.");
+            acquisitionSaveIndex++;
+            Console.Write(acquisitionSaveIndex);
+            //Console.Write(CamList.ToString());
+            //cameraFiles = CamList[0].GetAllEntries();
+            allImages = CamList[0].GetAllImages();
+            foreach (CameraFileEntry entry in allImages) 
+            {
+                Console.WriteLine(entry.Name);
+                entry.Name = "dd";
+            }
+            
+            // dir u koji se sprema
+            string dir = null;
+            Invoke((Action)delegate { dir = SavePathTextBox.Text; });
+            // ?
+            CamList[0].DownloadFiles(dir, allImages);
+            
         }
 
         private void BrowseButton_Click(object sender, EventArgs e)
@@ -159,7 +200,7 @@ namespace WinFormsExample
             }
             catch (Exception ex) { ReportError(ex.Message, false); }
         }
-
+        /*
         private void SaveToRdButton_CheckedChanged(object sender, EventArgs e)
         {
             try
@@ -189,6 +230,7 @@ namespace WinFormsExample
             }
             catch (Exception ex) { ReportError(ex.Message, false); }
         }
+        */
 
         #endregion
 
@@ -295,6 +337,11 @@ namespace WinFormsExample
             SessionButton.Text = "Open Session";
             SessionLabel.Text = "No open session";
             LiveViewButton.Text = "Start LV";
+        }
+
+        private void SettingsGroupBox_Enter(object sender, EventArgs e)
+        {
+
         }
 
         private void RefreshCamera()

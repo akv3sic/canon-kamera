@@ -29,15 +29,13 @@
         private void InitializeComponent()
         {
             this.SettingsGroupBox = new System.Windows.Forms.GroupBox();
+            this.SavePhotosButton = new System.Windows.Forms.Button();
             this.MainProgressBar = new System.Windows.Forms.ProgressBar();
             this.SavePathTextBox = new System.Windows.Forms.TextBox();
             this.BrowseButton = new System.Windows.Forms.Button();
-            this.SaveToGroupBox = new System.Windows.Forms.GroupBox();
-            this.STBothRdButton = new System.Windows.Forms.RadioButton();
-            this.STComputerRdButton = new System.Windows.Forms.RadioButton();
-            this.STCameraRdButton = new System.Windows.Forms.RadioButton();
             this.TakePhotoButton = new System.Windows.Forms.Button();
             this.LiveViewGroupBox = new System.Windows.Forms.GroupBox();
+            this.LiveViewPicBox2 = new System.Windows.Forms.PictureBox();
             this.LiveViewPicBox1 = new System.Windows.Forms.PictureBox();
             this.LiveViewButton = new System.Windows.Forms.Button();
             this.InitGroupBox = new System.Windows.Forms.GroupBox();
@@ -46,21 +44,19 @@
             this.SessionLabel = new System.Windows.Forms.Label();
             this.SessionButton = new System.Windows.Forms.Button();
             this.SaveFolderBrowser = new System.Windows.Forms.FolderBrowserDialog();
-            this.LiveViewPicBox2 = new System.Windows.Forms.PictureBox();
             this.SettingsGroupBox.SuspendLayout();
-            this.SaveToGroupBox.SuspendLayout();
             this.LiveViewGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.LiveViewPicBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LiveViewPicBox1)).BeginInit();
             this.InitGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.LiveViewPicBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // SettingsGroupBox
             // 
+            this.SettingsGroupBox.Controls.Add(this.SavePhotosButton);
             this.SettingsGroupBox.Controls.Add(this.MainProgressBar);
             this.SettingsGroupBox.Controls.Add(this.SavePathTextBox);
             this.SettingsGroupBox.Controls.Add(this.BrowseButton);
-            this.SettingsGroupBox.Controls.Add(this.SaveToGroupBox);
             this.SettingsGroupBox.Controls.Add(this.TakePhotoButton);
             this.SettingsGroupBox.Enabled = false;
             this.SettingsGroupBox.Location = new System.Drawing.Point(204, 16);
@@ -72,6 +68,19 @@
             this.SettingsGroupBox.TabIndex = 14;
             this.SettingsGroupBox.TabStop = false;
             this.SettingsGroupBox.Text = "Settings";
+            this.SettingsGroupBox.Enter += new System.EventHandler(this.SettingsGroupBox_Enter);
+            // 
+            // SavePhotosButton
+            // 
+            this.SavePhotosButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SavePhotosButton.Location = new System.Drawing.Point(125, 31);
+            this.SavePhotosButton.Margin = new System.Windows.Forms.Padding(4);
+            this.SavePhotosButton.Name = "SavePhotosButton";
+            this.SavePhotosButton.Size = new System.Drawing.Size(95, 59);
+            this.SavePhotosButton.TabIndex = 9;
+            this.SavePhotosButton.Text = "Save";
+            this.SavePhotosButton.UseVisualStyleBackColor = true;
+            this.SavePhotosButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // MainProgressBar
             // 
@@ -102,61 +111,6 @@
             this.BrowseButton.UseVisualStyleBackColor = true;
             this.BrowseButton.Click += new System.EventHandler(this.BrowseButton_Click);
             // 
-            // SaveToGroupBox
-            // 
-            this.SaveToGroupBox.Controls.Add(this.STBothRdButton);
-            this.SaveToGroupBox.Controls.Add(this.STComputerRdButton);
-            this.SaveToGroupBox.Controls.Add(this.STCameraRdButton);
-            this.SaveToGroupBox.Location = new System.Drawing.Point(396, 14);
-            this.SaveToGroupBox.Margin = new System.Windows.Forms.Padding(4);
-            this.SaveToGroupBox.Name = "SaveToGroupBox";
-            this.SaveToGroupBox.Padding = new System.Windows.Forms.Padding(4);
-            this.SaveToGroupBox.Size = new System.Drawing.Size(128, 123);
-            this.SaveToGroupBox.TabIndex = 4;
-            this.SaveToGroupBox.TabStop = false;
-            this.SaveToGroupBox.Text = "Save To";
-            // 
-            // STBothRdButton
-            // 
-            this.STBothRdButton.AutoSize = true;
-            this.STBothRdButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.STBothRdButton.Location = new System.Drawing.Point(8, 87);
-            this.STBothRdButton.Margin = new System.Windows.Forms.Padding(4);
-            this.STBothRdButton.Name = "STBothRdButton";
-            this.STBothRdButton.Size = new System.Drawing.Size(65, 24);
-            this.STBothRdButton.TabIndex = 0;
-            this.STBothRdButton.Text = "Both";
-            this.STBothRdButton.UseVisualStyleBackColor = true;
-            this.STBothRdButton.CheckedChanged += new System.EventHandler(this.SaveToRdButton_CheckedChanged);
-            // 
-            // STComputerRdButton
-            // 
-            this.STComputerRdButton.AutoSize = true;
-            this.STComputerRdButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.STComputerRdButton.Location = new System.Drawing.Point(8, 55);
-            this.STComputerRdButton.Margin = new System.Windows.Forms.Padding(4);
-            this.STComputerRdButton.Name = "STComputerRdButton";
-            this.STComputerRdButton.Size = new System.Drawing.Size(103, 24);
-            this.STComputerRdButton.TabIndex = 0;
-            this.STComputerRdButton.Text = "Computer";
-            this.STComputerRdButton.UseVisualStyleBackColor = true;
-            this.STComputerRdButton.CheckedChanged += new System.EventHandler(this.SaveToRdButton_CheckedChanged);
-            // 
-            // STCameraRdButton
-            // 
-            this.STCameraRdButton.AutoSize = true;
-            this.STCameraRdButton.Checked = true;
-            this.STCameraRdButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.STCameraRdButton.Location = new System.Drawing.Point(8, 23);
-            this.STCameraRdButton.Margin = new System.Windows.Forms.Padding(4);
-            this.STCameraRdButton.Name = "STCameraRdButton";
-            this.STCameraRdButton.Size = new System.Drawing.Size(89, 24);
-            this.STCameraRdButton.TabIndex = 0;
-            this.STCameraRdButton.TabStop = true;
-            this.STCameraRdButton.Text = "Camera";
-            this.STCameraRdButton.UseVisualStyleBackColor = true;
-            this.STCameraRdButton.CheckedChanged += new System.EventHandler(this.SaveToRdButton_CheckedChanged);
-            // 
             // TakePhotoButton
             // 
             this.TakePhotoButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -165,7 +119,7 @@
             this.TakePhotoButton.Name = "TakePhotoButton";
             this.TakePhotoButton.Size = new System.Drawing.Size(95, 59);
             this.TakePhotoButton.TabIndex = 2;
-            this.TakePhotoButton.Text = "Take Photo";
+            this.TakePhotoButton.Text = "Shoot";
             this.TakePhotoButton.UseVisualStyleBackColor = true;
             this.TakePhotoButton.Click += new System.EventHandler(this.TakePhotoButton_Click);
             // 
@@ -186,6 +140,20 @@
             this.LiveViewGroupBox.TabIndex = 13;
             this.LiveViewGroupBox.TabStop = false;
             this.LiveViewGroupBox.Text = "Live";
+            // 
+            // LiveViewPicBox2
+            // 
+            this.LiveViewPicBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LiveViewPicBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LiveViewPicBox2.Location = new System.Drawing.Point(507, 63);
+            this.LiveViewPicBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.LiveViewPicBox2.Name = "LiveViewPicBox2";
+            this.LiveViewPicBox2.Size = new System.Drawing.Size(480, 429);
+            this.LiveViewPicBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.LiveViewPicBox2.TabIndex = 3;
+            this.LiveViewPicBox2.TabStop = false;
             // 
             // LiveViewPicBox1
             // 
@@ -280,20 +248,6 @@
             // 
             this.SaveFolderBrowser.Description = "Save Images To...";
             // 
-            // LiveViewPicBox2
-            // 
-            this.LiveViewPicBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.LiveViewPicBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.LiveViewPicBox2.Location = new System.Drawing.Point(507, 63);
-            this.LiveViewPicBox2.Margin = new System.Windows.Forms.Padding(4);
-            this.LiveViewPicBox2.Name = "LiveViewPicBox2";
-            this.LiveViewPicBox2.Size = new System.Drawing.Size(480, 429);
-            this.LiveViewPicBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.LiveViewPicBox2.TabIndex = 3;
-            this.LiveViewPicBox2.TabStop = false;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -308,13 +262,11 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.SettingsGroupBox.ResumeLayout(false);
             this.SettingsGroupBox.PerformLayout();
-            this.SaveToGroupBox.ResumeLayout(false);
-            this.SaveToGroupBox.PerformLayout();
             this.LiveViewGroupBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.LiveViewPicBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LiveViewPicBox1)).EndInit();
             this.InitGroupBox.ResumeLayout(false);
             this.InitGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.LiveViewPicBox2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -325,10 +277,6 @@
         private System.Windows.Forms.ProgressBar MainProgressBar;
         private System.Windows.Forms.TextBox SavePathTextBox;
         private System.Windows.Forms.Button BrowseButton;
-        private System.Windows.Forms.GroupBox SaveToGroupBox;
-        private System.Windows.Forms.RadioButton STBothRdButton;
-        private System.Windows.Forms.RadioButton STComputerRdButton;
-        private System.Windows.Forms.RadioButton STCameraRdButton;
         private System.Windows.Forms.Button TakePhotoButton;
         private System.Windows.Forms.GroupBox LiveViewGroupBox;
         private System.Windows.Forms.PictureBox LiveViewPicBox1;
@@ -340,6 +288,7 @@
         private System.Windows.Forms.Button SessionButton;
         private System.Windows.Forms.FolderBrowserDialog SaveFolderBrowser;
         private System.Windows.Forms.PictureBox LiveViewPicBox2;
+        private System.Windows.Forms.Button SavePhotosButton;
     }
 }
 
